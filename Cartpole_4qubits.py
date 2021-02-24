@@ -148,10 +148,12 @@ def statepreparation(a):
 	
 	# Rot to computational basis encoding
 	# a = [a_0, a_1, a_2, a_3, a_4, a_5, a_6, a_7, a_8]
-	a[0] /= 4.8
-	a[1] /= 2*4.2
-	a[2] /= 0.418
-	a[3] /= 2*3.1
+	# a[0] /= 4.8
+	# a[1] /= 2*4.2
+	# a[2] /= 0.418
+	# a[3] /= 2*3.1
+	#a = torch.sigmoid(a)
+	a = 1 / (1 + np.exp(-a))
 
 
 
@@ -524,17 +526,17 @@ def deep_Q_Learning(alpha, gamma, epsilon, episodes, max_steps, n_tests, render 
 				# opt.step(loss)
 
 				def closure():
-					#opt.zero_grad()
+					opt.zero_grad()
 					loss = cost(var_Q_circuit = var_Q_circuit, var_Q_bias = var_Q_bias, features = batch_sampled, labels = Q_target)
 					# print(loss)
-					opt.zero_grad()
+					#opt.zero_grad()
 					loss.backward()
 					return loss
 				opt.step(closure)
 
 				# print("UPDATING PARAMS COMPLETED")
-				current_replay_memory = memory.output_all()
-				current_target_for_replay_memory = [item.reward + (1 - int(item.done)) * gamma * torch.max(variational_classifier(var_Q_circuit = var_target_Q_circuit, var_Q_bias = var_target_Q_bias, angles=item.next_state)) for item in current_replay_memory]
+				#current_replay_memory = memory.output_all()
+				#current_target_for_replay_memory = [item.reward + (1 - int(item.done)) * gamma * torch.max(variational_classifier(var_Q_circuit = var_target_Q_circuit, var_Q_bias = var_target_Q_bias, angles=item.next_state)) for item in current_replay_memory]
 				# current_target_for_replay_memory = [item.reward + (1 - int(item.done)) * gamma * np.max(variational_classifier(var_target_Q, angles=decimalToBinaryFixLength(9,item.next_state))) for item in current_replay_memory]
 
 				# if t%5 == 0:
