@@ -153,14 +153,14 @@ def statepreparation(a):
 	# a[2] /= 0.418
 	# a[3] /= 2*3.1
 	#a = torch.sigmoid(a)
-	a = 1 / (1 + np.exp(-a))
+	a = 1 / (1 + np.exp(-a))  - 1
 
 
 
 	for ind in range(len(a)):
-		#qml.RX(np.pi * a[ind], wires=ind)
-		#qml.RZ(np.pi * a[ind], wires=ind)
-		qml.RY(np.pi * a[ind], wires=ind)
+		qml.RX(np.pi * a[ind], wires=ind)
+		qml.RZ(np.pi * a[ind], wires=ind)
+		#qml.RY(np.pi * a[ind], wires=ind)
 
 
 def layer(W):
@@ -393,7 +393,7 @@ def deep_Q_Learning(alpha, gamma, epsilon, episodes, max_steps, n_tests, render 
 	# initialize weight layers
 
 	num_qubits = 4
-	num_layers = 2
+	num_layers = 6
 	# var_init = (0.01 * np.random.randn(num_layers, num_qubits, 3), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
 	var_init_circuit = Variable(torch.tensor(0.01 * np.random.randn(num_layers, num_qubits, 3), device='cpu').type(dtype), requires_grad=True)
