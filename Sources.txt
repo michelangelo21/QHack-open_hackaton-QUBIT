@@ -1,0 +1,5 @@
+arXiv:1907.00397v3
+
+https://github.com/ycchen1989/Var-QuantumCircuits-DeepRL
+
+https://towardsdatascience.com/deep-q-learning-for-the-cartpole-44d761085c2f
